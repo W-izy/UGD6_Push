@@ -7,15 +7,16 @@ import androidx.room.RoomDatabase
 
 
 @Database(
-    entities = [User::class],
+    entities = [MemberGym::class],
     version = 1
 )
 
-abstract class UserDB: RoomDatabase() {
-    abstract fun userDao() : UserDao
+abstract class MemberGymDB: RoomDatabase() {
+    abstract fun MemberGymDao() : MemberGymDao
     companion object {
-        @Volatile private var instance : UserDB? = null
+        @Volatile private var instance : MemberGymDB? = null
         private val LOCK = Any()
+
         operator fun invoke(context: Context) = instance ?:
         synchronized(LOCK){
             instance ?: buildDatabase(context).also {
@@ -24,8 +25,8 @@ abstract class UserDB: RoomDatabase() {
         }
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
-            UserDB::class.java,
-            "note12345.db"
-        ).allowMainThreadQueries().build()
+            MemberGymDB::class.java,
+            "membergym12345.db"
+        ).build()
     }
 }
